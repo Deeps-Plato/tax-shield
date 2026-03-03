@@ -1,0 +1,110 @@
+[
+  {
+    "name": "Home Office",
+    "description": "Expenses for business use of home",
+    "icon": "home",
+    "sort_order": 1
+  },
+  {
+    "name": "Vehicle & Transportation",
+    "description": "Business vehicle and travel expenses",
+    "icon": "car",
+    "sort_order": 2
+  },
+  {
+    "name": "Equipment & Technology",
+    "description": "Business equipment purchases and tech",
+    "icon": "laptop",
+    "sort_order": 3
+  },
+  {
+    "name": "Professional Services",
+    "description": "Legal, accounting, consulting fees",
+    "icon": "briefcase",
+    "sort_order": 4
+  },
+  {
+    "name": "Education & Training",
+    "description": "Professional development and education",
+    "icon": "book",
+    "sort_order": 5
+  },
+  {
+    "name": "Insurance",
+    "description": "Business and health insurance premiums",
+    "icon": "shield",
+    "sort_order": 6
+  },
+  {
+    "name": "Retirement & Investments",
+    "description": "Retirement contributions and investment expenses",
+    "icon": "piggy-bank",
+    "sort_order": 7
+  },
+  {
+    "name": "Healthcare & Medical",
+    "description": "Medical expenses and HSA contributions",
+    "icon": "heart",
+    "sort_order": 8
+  },
+  {
+    "name": "Office Supplies",
+    "description": "General office and business supplies",
+    "icon": "paperclip",
+    "sort_order": 9
+  },
+  {
+    "name": "Marketing & Advertising",
+    "description": "Business promotion and advertising",
+    "icon": "megaphone",
+    "sort_order": 10
+  },
+  {
+    "name": "Travel & Meals",
+    "description": "Business travel and meal expenses",
+    "icon": "plane",
+    "sort_order": 11
+  },
+  {
+    "name": "Rent & Utilities",
+    "description": "Business rent and utility payments",
+    "icon": "building",
+    "sort_order": 12
+  },
+  {
+    "name": "Depreciation",
+    "description": "Asset depreciation and Section 179",
+    "icon": "trending-down",
+    "sort_order": 13
+  },
+  {
+    "name": "Charitable Giving",
+    "description": "Charitable contributions and donations",
+    "icon": "gift",
+    "sort_order": 14
+  },
+  {
+    "name": "State & Local Taxes",
+    "description": "SALT deductions and state tax credits",
+    "icon": "map",
+    "sort_order": 15
+  },
+  {
+    "name": "Interest & Debt",
+    "description": "Mortgage, student loan, and business interest",
+    "icon": "percent",
+    "sort_order": 16
+  },
+  {
+    "name": "Childcare & Dependents",
+    "description": "Child and dependent care expenses",
+    "icon": "users",
+    "sort_order": 17
+  },
+  {
+    "name": "Miscellaneous",
+    "description": "Other deductible expenses",
+    "icon": "more",
+    "sort_order": 18
+  }
+]

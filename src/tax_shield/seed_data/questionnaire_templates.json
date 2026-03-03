@@ -1,0 +1,177 @@
+[
+  {
+    "key": "filing_status",
+    "question": "What is your primary filing status for this tax year?",
+    "options": ["Single / Self-Employed", "Married Filing Jointly", "S-Corporation Owner", "Partnership / LLC Member", "W-2 Employee"],
+    "follow_ups": {},
+    "discovered_category": null
+  },
+  {
+    "key": "home_office",
+    "question": "Do you use part of your home exclusively and regularly for business?",
+    "options": ["Yes, dedicated room", "Yes, dedicated area", "No"],
+    "follow_ups": {"Yes, dedicated room": "home_office_sqft", "Yes, dedicated area": "home_office_sqft"},
+    "discovered_category": "Home Office"
+  },
+  {
+    "key": "home_office_sqft",
+    "question": "Approximately how many square feet is your home office?",
+    "options": ["Under 100 sq ft", "100-200 sq ft", "200-300 sq ft", "Over 300 sq ft"],
+    "follow_ups": {},
+    "discovered_category": "Home Office"
+  },
+  {
+    "key": "vehicle",
+    "question": "Do you use a personal vehicle for business purposes?",
+    "options": ["Yes, frequently (1000+ miles/year)", "Yes, occasionally", "No"],
+    "follow_ups": {"Yes, frequently (1000+ miles/year)": "vehicle_type"},
+    "discovered_category": "Vehicle & Transportation"
+  },
+  {
+    "key": "vehicle_type",
+    "question": "What type of vehicle do you use for business?",
+    "options": ["Car or light truck (under 6,000 lbs)", "SUV or truck (over 6,000 lbs)", "Multiple vehicles"],
+    "follow_ups": {},
+    "discovered_category": "Vehicle & Transportation"
+  },
+  {
+    "key": "equipment",
+    "question": "Did you purchase any business equipment or technology this year (computer, phone, furniture, etc.)?",
+    "options": ["Yes, under $2,500 total", "Yes, $2,500-$10,000", "Yes, over $10,000", "No"],
+    "follow_ups": {},
+    "discovered_category": "Equipment & Technology"
+  },
+  {
+    "key": "professional_services",
+    "question": "Did you pay for any professional services (legal, accounting, consulting)?",
+    "options": ["Yes", "No"],
+    "follow_ups": {},
+    "discovered_category": "Professional Services"
+  },
+  {
+    "key": "education",
+    "question": "Did you pay for any education, training, or professional certifications this year?",
+    "options": ["Yes, for myself", "Yes, for a dependent", "Yes, for both", "No"],
+    "follow_ups": {},
+    "discovered_category": "Education & Training"
+  },
+  {
+    "key": "health_insurance",
+    "question": "How do you get your health insurance?",
+    "options": ["Self-employed, I pay my own premiums", "Through an employer", "Through spouse's employer", "Marketplace/ACA"],
+    "follow_ups": {"Self-employed, I pay my own premiums": "hsa"},
+    "discovered_category": "Insurance"
+  },
+  {
+    "key": "hsa",
+    "question": "Do you have a High Deductible Health Plan (HDHP) and contribute to an HSA?",
+    "options": ["Yes, maxing contributions", "Yes, partial contributions", "No HSA", "Not sure what HDHP/HSA means"],
+    "follow_ups": {},
+    "discovered_category": "Healthcare & Medical"
+  },
+  {
+    "key": "retirement",
+    "question": "What retirement accounts do you contribute to?",
+    "options": ["401(k) or Solo 401(k)", "SEP IRA or SIMPLE IRA", "Traditional or Roth IRA", "None currently"],
+    "follow_ups": {},
+    "discovered_category": "Retirement & Investments"
+  },
+  {
+    "key": "business_travel",
+    "question": "Did you travel for business this year (flights, hotels, conferences)?",
+    "options": ["Yes, significant travel", "Yes, occasional trips", "No"],
+    "follow_ups": {},
+    "discovered_category": "Travel & Meals"
+  },
+  {
+    "key": "meals",
+    "question": "Do you regularly have meals with clients, prospects, or business associates?",
+    "options": ["Yes, weekly or more", "Yes, monthly", "Rarely or never"],
+    "follow_ups": {},
+    "discovered_category": "Travel & Meals"
+  },
+  {
+    "key": "office_rent",
+    "question": "Do you rent office space, a co-working space, or pay business-related utilities?",
+    "options": ["Yes, dedicated office space", "Yes, co-working membership", "No, work from home only"],
+    "follow_ups": {},
+    "discovered_category": "Rent & Utilities"
+  },
+  {
+    "key": "marketing",
+    "question": "Did you spend money on marketing, advertising, or a business website?",
+    "options": ["Yes", "No"],
+    "follow_ups": {},
+    "discovered_category": "Marketing & Advertising"
+  },
+  {
+    "key": "charitable",
+    "question": "Did you make charitable donations this year (cash, property, or volunteer mileage)?",
+    "options": ["Yes, over $1,000", "Yes, under $1,000", "No"],
+    "follow_ups": {},
+    "discovered_category": "Charitable Giving"
+  },
+  {
+    "key": "property_ownership",
+    "question": "Do you own real estate (primary home, rental property, commercial)?",
+    "options": ["Primary home only", "Primary home + rental/investment property", "Rental or commercial property", "No real estate"],
+    "follow_ups": {},
+    "discovered_category": "Interest & Debt"
+  },
+  {
+    "key": "children",
+    "question": "Do you have children under 17 or pay for childcare/dependent care?",
+    "options": ["Yes, with childcare expenses", "Yes, no childcare expenses", "No children/dependents"],
+    "follow_ups": {},
+    "discovered_category": "Childcare & Dependents"
+  },
+  {
+    "key": "student_loans",
+    "question": "Are you paying student loan interest?",
+    "options": ["Yes", "No"],
+    "follow_ups": {},
+    "discovered_category": "Interest & Debt"
+  },
+  {
+    "key": "investments",
+    "question": "Do you have taxable investment accounts with realized gains or losses this year?",
+    "options": ["Yes, net gains", "Yes, net losses", "Yes, mixed", "No taxable investment accounts"],
+    "follow_ups": {},
+    "discovered_category": "Retirement & Investments"
+  },
+  {
+    "key": "entity_structure",
+    "question": "Have you evaluated whether your current business entity structure is tax-optimal?",
+    "options": ["Yes, recently reviewed", "No, using sole proprietorship/single-member LLC", "Not sure what this means"],
+    "follow_ups": {},
+    "discovered_category": "Professional Services"
+  },
+  {
+    "key": "energy",
+    "question": "Did you make any energy-efficient home improvements (solar, heat pump, insulation, windows)?",
+    "options": ["Yes", "Planning to", "No"],
+    "follow_ups": {},
+    "discovered_category": "Miscellaneous"
+  },
+  {
+    "key": "state_taxes",
+    "question": "Do you live in a high-income-tax state (CA, NY, NJ, etc.) and pay significant state/local taxes?",
+    "options": ["Yes, over $10,000/year in SALT", "Yes, under $10,000", "No state income tax"],
+    "follow_ups": {},
+    "discovered_category": "State & Local Taxes"
+  },
+  {
+    "key": "depreciation",
+    "question": "Do you own business assets that could be depreciated (equipment, vehicles, property improvements)?",
+    "options": ["Yes, significant assets", "Yes, some equipment", "No / Not sure"],
+    "follow_ups": {},
+    "discovered_category": "Depreciation"
+  },
+  {
+    "key": "other_income",
+    "question": "Do you have any other income sources we haven't covered (rental income, royalties, freelance, crypto)?",
+    "options": ["Yes, rental income", "Yes, freelance/gig income", "Yes, crypto/digital assets", "No other income"],
+    "follow_ups": {},
+    "discovered_category": "Miscellaneous"
+  }
+]

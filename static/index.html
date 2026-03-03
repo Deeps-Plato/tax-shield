@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="theme-color" content="#1e40af">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Tax Shield">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icons/icon.svg">
+    <title>Tax Shield</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Nav -->
+    <nav class="bg-blue-800 text-white shadow-lg safe-top">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <a href="#dashboard" class="text-xl font-bold tracking-tight whitespace-nowrap">Tax Shield</a>
+                <button id="mobile-menu-btn" class="md:hidden p-1 rounded hover:bg-blue-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+                <div id="nav-links" class="hidden md:flex gap-1 flex-wrap"></div>
+            </div>
+            <div id="user-info" class="flex items-center"></div>
+        </div>
+        <!-- Mobile nav drawer -->
+        <div id="mobile-nav" class="hidden md:hidden bg-blue-900 px-4 pb-3">
+            <div id="mobile-nav-links" class="flex flex-col gap-1"></div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main id="main-content" class="min-h-[calc(100vh-64px)] pb-safe">
+        <div class="flex justify-center py-20">
+            <div class="spinner"></div>
+        </div>
+    </main>
+
+    <!-- Bottom tab bar for mobile -->
+    <nav id="mobile-tabs" class="fixed bottom-0 left-0 right-0 bg-white border-t md:hidden safe-bottom z-50 hidden">
+        <div class="flex justify-around py-2">
+            <a href="#dashboard" class="tab-link flex flex-col items-center text-xs text-gray-500" data-tab="dashboard">
+                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4"/></svg>
+                Home
+            </a>
+            <a href="#search" class="tab-link flex flex-col items-center text-xs text-gray-500" data-tab="search">
+                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                Search
+            </a>
+            <a href="#my-items" class="tab-link flex flex-col items-center text-xs text-gray-500" data-tab="my-items">
+                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                My Items
+            </a>
+            <a href="#transactions" class="tab-link flex flex-col items-center text-xs text-gray-500" data-tab="transactions">
+                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                Txns
+            </a>
+            <a href="#questionnaire" class="tab-link flex flex-col items-center text-xs text-gray-500" data-tab="questionnaire">
+                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01"/></svg>
+                Q&A
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        // Service worker registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(() => {});
+        }
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+            document.getElementById('mobile-nav')?.classList.toggle('hidden');
+        });
+    </script>
+    <script type="module" src="/js/app.js"></script>
+</body>
+</html>

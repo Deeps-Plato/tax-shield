@@ -1,0 +1,19 @@
+{
+  "name": "Tax Shield",
+  "short_name": "TaxShield",
+  "description": "Private tax deduction cross-reference and form generation tool",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#1e40af",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "productivity"]
+}

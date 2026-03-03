@@ -1,0 +1,112 @@
+/* Tax Shield — Custom styles (Tailwind via CDN handles the rest) */
+
+:root {
+    --color-primary: #1e40af;
+    --color-primary-light: #3b82f6;
+    --color-success: #16a34a;
+    --color-warning: #d97706;
+    --color-danger: #dc2626;
+}
+
+[x-cloak] { display: none !important; }
+
+/* Page transitions */
+.page-enter { opacity: 0; transform: translateY(8px); }
+.page-active { opacity: 1; transform: translateY(0); transition: all 0.2s ease; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
+
+/* Toast notifications */
+.toast {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 1000;
+    animation: slideUp 0.3s ease;
+}
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Loading spinner */
+.spinner {
+    border: 3px solid #e2e8f0;
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 0.6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Card hover */
+.card-hover { transition: box-shadow 0.2s, transform 0.2s; }
+.card-hover:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); transform: translateY(-1px); }
+
+/* Markdown rendered content */
+.prose h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+.prose h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
+.prose h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; }
+.prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 0.5rem; }
+.prose ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 0.5rem; }
+.prose p { margin-bottom: 0.5rem; }
+.prose strong { font-weight: 600; }
+
+/* CSV dropzone */
+.dropzone {
+    border: 2px dashed #cbd5e1;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+.dropzone.active {
+    border-color: var(--color-primary);
+    background-color: #eff6ff;
+}
+
+/* ── PWA / Mobile ── */
+
+/* Safe area insets for notched devices (iPhone X+) */
+.safe-top { padding-top: env(safe-area-inset-top); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+.pb-safe { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 4rem); }
+
+@media (max-width: 767px) {
+    /* Bottom tab bar spacing */
+    #main-content { padding-bottom: 5rem; }
+
+    /* Larger touch targets on mobile */
+    button, a, input, select { min-height: 44px; }
+
+    /* Toast above bottom tabs */
+    .toast { bottom: 5rem; }
+
+    /* Card hover disabled on touch */
+    .card-hover:hover { box-shadow: none; transform: none; }
+
+    /* Full-width cards on mobile */
+    .card-hover { width: 100%; }
+}
+
+/* Active tab highlight */
+.tab-link.active {
+    color: #1e40af;
+}
+.tab-link.active svg {
+    stroke: #1e40af;
+}
+
+/* Pull-to-refresh hint (visual only; browser handles actual) */
+@supports (-webkit-overflow-scrolling: touch) {
+    body { -webkit-overflow-scrolling: touch; }
+}
+
+/* Standalone mode adjustments (when installed as PWA) */
+@media (display-mode: standalone) {
+    .safe-top { padding-top: max(env(safe-area-inset-top), 12px); }
+}
