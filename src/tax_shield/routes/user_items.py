@@ -19,11 +19,7 @@ async def list_user_items(
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ) -> list[UserItem]:
-    q = (
-        select(UserItem)
-        .options(selectinload(UserItem.item))
-        .where(UserItem.user_id == user.id)
-    )
+    q = select(UserItem).options(selectinload(UserItem.item)).where(UserItem.user_id == user.id)
     if tax_year:
         q = q.where(UserItem.tax_year == tax_year)
     if claimed is not None:

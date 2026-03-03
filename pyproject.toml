@@ -17,6 +17,7 @@ dependencies = [
     "alembic>=1.14",
     "python-jose[cryptography]>=3.3",
     "passlib[bcrypt]>=1.7",
+    "bcrypt<5",
     "python-multipart>=0.0.12",
     "anthropic>=0.40",
     "plaid-python>=26.0",

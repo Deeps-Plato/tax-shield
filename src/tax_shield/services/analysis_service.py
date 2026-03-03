@@ -42,7 +42,8 @@ async def run_synergy_analysis(
         for i in items
     )
 
-    prompt = f"""Analyze these tax deduction/credit items for synergies and optimization opportunities.
+    prompt = f"""Analyze these tax deduction/credit items for synergies \
+and optimization opportunities.
 
 Items selected:
 {items_desc}

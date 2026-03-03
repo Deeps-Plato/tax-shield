@@ -50,9 +50,7 @@ async def list_connections(
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ) -> list[PlaidConnection]:
-    result = await db.execute(
-        select(PlaidConnection).where(PlaidConnection.user_id == user.id)
-    )
+    result = await db.execute(select(PlaidConnection).where(PlaidConnection.user_id == user.id))
     return list(result.scalars().all())
 
 

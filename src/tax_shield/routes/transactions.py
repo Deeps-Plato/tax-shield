@@ -2,7 +2,7 @@ import csv
 import io
 from datetime import datetime
 
-from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile, status
+from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -47,9 +47,7 @@ async def update_transaction(
     db: AsyncSession = Depends(get_db),
 ) -> Transaction:
     result = await db.execute(
-        select(Transaction).where(
-            Transaction.id == transaction_id, Transaction.user_id == user.id
-        )
+        select(Transaction).where(Transaction.id == transaction_id, Transaction.user_id == user.id)
     )
     txn = result.scalar_one_or_none()
     if not txn:

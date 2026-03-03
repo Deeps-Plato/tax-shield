@@ -79,7 +79,8 @@ class Item(Base):
     user_items: Mapped[list["UserItem"]] = relationship(back_populates="item")
 
     __table_args__ = (
-        Index("ix_items_fts", "name", "description", postgresql_using="gin"),
+        Index("ix_items_name", "name"),
+        Index("ix_items_category", "category_id"),
     )
 
 
@@ -171,9 +172,7 @@ class Transaction(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
     user: Mapped["User"] = relationship(back_populates="transactions")
-    plaid_connection: Mapped["PlaidConnection | None"] = relationship(
-        back_populates="transactions"
-    )
+    plaid_connection: Mapped["PlaidConnection | None"] = relationship(back_populates="transactions")
 
 
 class TaxRecord(Base):

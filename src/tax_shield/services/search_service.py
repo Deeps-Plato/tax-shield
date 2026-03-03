@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from sqlalchemy import func, select, text
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tax_shield.models.db_models import Item, SearchHistory
@@ -16,20 +16,15 @@ async def search_items(
 ) -> tuple[list[Item], int]:
     # PostgreSQL full-text search with ts_rank
     ts_query = func.plainto_tsquery("english", query)
-    ts_vector = func.to_tsvector(
-        "english", func.concat(Item.name, " ", Item.description)
-    )
+    ts_vector = func.to_tsvector("english", func.concat(Item.name, " ", Item.description))
     rank = func.ts_rank(ts_vector, ts_query)
 
     # Also do ILIKE fallback for short/exact queries
     like_pattern = f"%{query}%"
 
-    q = (
-        select(Item)
-        .where(
-            Item.is_active.is_(True),
-            (ts_vector.op("@@")(ts_query)) | (Item.name.ilike(like_pattern)),
-        )
+    q = select(Item).where(
+        Item.is_active.is_(True),
+        (ts_vector.op("@@")(ts_query)) | (Item.name.ilike(like_pattern)),
     )
 
     if category_id:

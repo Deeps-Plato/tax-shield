@@ -8,12 +8,10 @@ FIELDS = {
     "employer_ein": {"label": "b - Employer's EIN", "type": "text"},
     "employer_name": {"label": "c - Employer's name", "type": "text"},
     "employer_address": {"label": "c - Employer's address", "type": "text"},
-
     # Employee info
     "employee_ssn": {"label": "a - Employee's SSN", "type": "text"},
     "employee_name": {"label": "e - Employee's name", "type": "text"},
     "employee_address": {"label": "f - Employee's address", "type": "text"},
-
     # Boxes
     "wages_tips": {"label": "1 - Wages, tips, other compensation", "type": "currency", "box": 1},
     "federal_withheld": {"label": "2 - Federal income tax withheld", "type": "currency", "box": 2},

@@ -32,9 +32,7 @@ async def _seed_categories(db: AsyncSession) -> int:
 
 
 async def _seed_items(db: AsyncSession) -> int:
-    existing_count = (
-        await db.execute(select(Item.id).limit(1))
-    ).scalar_one_or_none()
+    existing_count = (await db.execute(select(Item.id).limit(1))).scalar_one_or_none()
     if existing_count is not None:
         return 0
 
@@ -67,9 +65,7 @@ async def _seed_items(db: AsyncSession) -> int:
 
 
 async def _seed_strategies(db: AsyncSession) -> int:
-    existing_count = (
-        await db.execute(select(Strategy.id).limit(1))
-    ).scalar_one_or_none()
+    existing_count = (await db.execute(select(Strategy.id).limit(1))).scalar_one_or_none()
     if existing_count is not None:
         return 0
 

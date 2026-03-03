@@ -1,7 +1,6 @@
 """Auto-classify transactions into tax categories using rules + AI fallback."""
 
 import json
-from uuid import UUID
 
 import anthropic
 from sqlalchemy import select
@@ -59,9 +58,7 @@ MERCHANT_RULES: dict[str, str] = {
 }
 
 
-async def classify_transaction(
-    db: AsyncSession, transaction: Transaction
-) -> int | None:
+async def classify_transaction(db: AsyncSession, transaction: Transaction) -> int | None:
     """Classify a single transaction. Returns category_id or None."""
     # First: rules-based matching
     desc_lower = (transaction.description or "").lower()
@@ -69,9 +66,7 @@ async def classify_transaction(
 
     for pattern, cat_name in MERCHANT_RULES.items():
         if pattern in desc_lower or pattern in merchant_lower:
-            result = await db.execute(
-                select(Category.id).where(Category.name == cat_name)
-            )
+            result = await db.execute(select(Category.id).where(Category.name == cat_name))
             cat_id = result.scalar_one_or_none()
             if cat_id:
                 return cat_id
@@ -94,7 +89,7 @@ async def classify_batch_with_ai(
 
     prompt = f"""Classify these transactions into tax deduction categories.
 
-Categories: {', '.join(cat_names.values())}
+Categories: {", ".join(cat_names.values())}
 
 Transactions:
 {txn_descs}

@@ -98,9 +98,7 @@ async def sync_transactions(
     for txn in response.added:
         # Skip if already exists
         existing = await db.execute(
-            select(Transaction).where(
-                Transaction.plaid_transaction_id == txn.transaction_id
-            )
+            select(Transaction).where(Transaction.plaid_transaction_id == txn.transaction_id)
         )
         if existing.scalar_one_or_none():
             continue

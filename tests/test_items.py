@@ -26,33 +26,45 @@ async def test_get_item_not_found(client: AsyncClient, test_user):
 
 @pytest.mark.asyncio
 async def test_create_item_admin(client: AsyncClient, admin_user, sample_category):
-    resp = await client.post("/api/items", json={
-        "name": "Laptop",
-        "description": "Business laptop purchase",
-        "category_id": sample_category.id,
-        "deduction_type": "deduction",
-        "max_amount": 2500,
-    }, headers=admin_user["headers"])
+    resp = await client.post(
+        "/api/items",
+        json={
+            "name": "Laptop",
+            "description": "Business laptop purchase",
+            "category_id": sample_category.id,
+            "deduction_type": "deduction",
+            "max_amount": 2500,
+        },
+        headers=admin_user["headers"],
+    )
     assert resp.status_code == 201
     assert resp.json()["name"] == "Laptop"
 
 
 @pytest.mark.asyncio
 async def test_create_item_non_admin(client: AsyncClient, test_user, sample_category):
-    resp = await client.post("/api/items", json={
-        "name": "Should Fail",
-        "description": "Non-admin cannot create",
-        "category_id": sample_category.id,
-        "deduction_type": "deduction",
-    }, headers=test_user["headers"])
+    resp = await client.post(
+        "/api/items",
+        json={
+            "name": "Should Fail",
+            "description": "Non-admin cannot create",
+            "category_id": sample_category.id,
+            "deduction_type": "deduction",
+        },
+        headers=test_user["headers"],
+    )
     assert resp.status_code == 403
 
 
 @pytest.mark.asyncio
 async def test_update_item(client: AsyncClient, admin_user, sample_item):
-    resp = await client.patch(f"/api/items/{sample_item.id}", json={
-        "max_amount": 2000,
-    }, headers=admin_user["headers"])
+    resp = await client.patch(
+        f"/api/items/{sample_item.id}",
+        json={
+            "max_amount": 2000,
+        },
+        headers=admin_user["headers"],
+    )
     assert resp.status_code == 200
     assert resp.json()["max_amount"] == 2000
 

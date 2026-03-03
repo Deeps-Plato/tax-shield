@@ -25,20 +25,28 @@ async def test_list_strategies(client: AsyncClient, test_user, db: AsyncSession,
 
 @pytest.mark.asyncio
 async def test_create_strategy_admin(client: AsyncClient, admin_user, sample_category):
-    resp = await client.post("/api/strategies", json={
-        "name": "Test Strategy",
-        "category_id": sample_category.id,
-        "description": "A test strategy for testing.",
-        "complexity": "low",
-    }, headers=admin_user["headers"])
+    resp = await client.post(
+        "/api/strategies",
+        json={
+            "name": "Test Strategy",
+            "category_id": sample_category.id,
+            "description": "A test strategy for testing.",
+            "complexity": "low",
+        },
+        headers=admin_user["headers"],
+    )
     assert resp.status_code == 201
 
 
 @pytest.mark.asyncio
 async def test_create_strategy_non_admin(client: AsyncClient, test_user, sample_category):
-    resp = await client.post("/api/strategies", json={
-        "name": "Should Fail",
-        "category_id": sample_category.id,
-        "description": "Non-admin cannot create.",
-    }, headers=test_user["headers"])
+    resp = await client.post(
+        "/api/strategies",
+        json={
+            "name": "Should Fail",
+            "category_id": sample_category.id,
+            "description": "Non-admin cannot create.",
+        },
+        headers=test_user["headers"],
+    )
     assert resp.status_code == 403

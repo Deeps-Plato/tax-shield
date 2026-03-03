@@ -6,7 +6,11 @@ from httpx import AsyncClient
 
 @pytest.mark.asyncio
 async def test_upload_csv(client: AsyncClient, test_user):
-    csv_content = "Date,Description,Amount,Merchant\n01/15/2025,Office Supplies,45.99,Staples\n01/20/2025,Software License,199.00,Adobe\n"
+    csv_content = (
+        "Date,Description,Amount,Merchant\n"
+        "01/15/2025,Office Supplies,45.99,Staples\n"
+        "01/20/2025,Software License,199.00,Adobe\n"
+    )
     files = {"file": ("statement.csv", io.BytesIO(csv_content.encode()), "text/csv")}
     resp = await client.post(
         "/api/transactions/upload-csv?tax_year=2025",
