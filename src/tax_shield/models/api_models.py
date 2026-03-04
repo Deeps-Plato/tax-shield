@@ -265,12 +265,18 @@ class QuestionnaireAnswer(BaseModel):
     response: str
 
 
+class DiscoveredItem(BaseModel):
+    id: int
+    name: str
+    description: str | None = None
+
+
 class QuestionnaireQuestion(BaseModel):
     session_id: str
     question_key: str
     question: str
     options: list[str] | None = None
-    discovered_items: list[ItemOut] = []
+    discovered_items: list[DiscoveredItem] = []
     is_final: bool = False
 
 
