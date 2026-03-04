@@ -1,10 +1,13 @@
 import json
+import uuid
 from pathlib import Path
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from tax_shield.models.db_models import Category, Item, Strategy
+from tax_shield.config import settings
+from tax_shield.models.db_models import Category, Item, Strategy, User
+from tax_shield.security import hash_password
 
 SEED_DIR = Path(__file__).parent.parent / "seed_data"
 
@@ -15,8 +18,28 @@ async def seed_all(db: AsyncSession) -> dict[str, int]:
     counts["categories"] = await _seed_categories(db)
     counts["items"] = await _seed_items(db)
     counts["strategies"] = await _seed_strategies(db)
+    counts["admin"] = await _seed_admin(db)
 
     return counts
+
+
+async def _seed_admin(db: AsyncSession) -> int:
+    existing = await db.execute(
+        select(User).where(User.email == settings.ADMIN_EMAIL)
+    )
+    if existing.scalar_one_or_none():
+        return 0
+
+    admin = User(
+        id=uuid.uuid4(),
+        email=settings.ADMIN_EMAIL,
+        password_hash=hash_password(settings.ADMIN_PASSWORD),
+        name="Admin",
+        role="admin",
+    )
+    db.add(admin)
+    await db.commit()
+    return 1
 
 
 async def _seed_categories(db: AsyncSession) -> int:
