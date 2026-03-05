@@ -73,9 +73,14 @@
     </nav>
 
     <script>
-        // Service worker registration
+        // Clear stale service workers and caches, then register fresh
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(() => {});
+            navigator.serviceWorker.getRegistrations().then(regs => {
+                regs.forEach(r => r.unregister());
+            }).then(() => {
+                caches.keys().then(keys => keys.forEach(k => caches.delete(k)));
+                navigator.serviceWorker.register('sw.js').catch(() => {});
+            });
         }
 
         // Mobile menu toggle
