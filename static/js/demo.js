@@ -41,6 +41,7 @@ export async function demoGET(path) {
     if (path.startsWith('/strategies')) return data.strategies;
     if (path.startsWith('/transactions')) return [];
     if (path.startsWith('/user-items')) return [];
+    if (path.startsWith('/tax-records')) return [];
     if (path === '/admin/stats') {
         return {
             users: 1,
@@ -51,6 +52,81 @@ export async function demoGET(path) {
         };
     }
     return [];
+}
+
+// Demo questionnaire flow
+const DEMO_QUESTIONS = [
+    {
+        question_key: 'filing_status',
+        question: 'What is your filing status?',
+        options: ['Single', 'Married Filing Jointly', 'Married Filing Separately', 'Head of Household'],
+    },
+    {
+        question_key: 'income_source',
+        question: 'What is your primary income source?',
+        options: ['W-2 Employee', 'Self-Employed / Freelancer', 'Business Owner (LLC/S-Corp)', 'Investor / Retired'],
+    },
+    {
+        question_key: 'home_office',
+        question: 'Do you work from home or have a dedicated home office?',
+        options: ['Yes — dedicated room', 'Sometimes — shared space', 'No'],
+        discovers: ['Home Office Deduction (Simplified Method)', 'Internet Service (Business Portion)'],
+    },
+    {
+        question_key: 'vehicle',
+        question: 'Do you use a personal vehicle for business purposes?',
+        options: ['Yes — frequently', 'Occasionally', 'No'],
+        discovers: ['Standard Mileage Deduction'],
+    },
+    {
+        question_key: 'real_estate',
+        question: 'Do you own rental or investment real estate?',
+        options: ['Yes — residential rental', 'Yes — commercial property', 'Yes — land / agricultural', 'No'],
+        discovers: ['Rental Property Depreciation (Residential 27.5-Year)', 'Mortgage Interest Deduction (Rental Property)', 'Property Tax Deduction (Rental)'],
+    },
+    {
+        question_key: 'retirement',
+        question: 'Which retirement accounts do you contribute to?',
+        options: ['401(k) / 403(b)', 'IRA (Traditional or Roth)', 'SEP IRA / Solo 401(k)', 'None currently'],
+        discovers: ['Traditional IRA Deduction'],
+    },
+    {
+        question_key: 'health',
+        question: 'Do you have a High Deductible Health Plan (HDHP) with an HSA?',
+        options: ['Yes', 'No', 'Not sure'],
+        discovers: ['Health Savings Account (HSA) Contributions'],
+    },
+    {
+        question_key: 'dependents',
+        question: 'Do you have children or dependents?',
+        options: ['Yes — under 17', 'Yes — 17 or older', 'No'],
+        discovers: ['Child Tax Credit', 'Child and Dependent Care Credit'],
+    },
+];
+
+let demoQStep = 0;
+let demoSessionId = 'demo-session-' + Date.now();
+
+function buildDemoQuestion(step, discovered) {
+    if (step >= DEMO_QUESTIONS.length) {
+        return {
+            session_id: demoSessionId,
+            question_key: 'complete',
+            question: `Questionnaire complete! We identified ${discovered.length} potential deductions based on your answers.`,
+            options: null,
+            discovered_items: [],
+            is_final: true,
+        };
+    }
+    const q = DEMO_QUESTIONS[step];
+    return {
+        session_id: demoSessionId,
+        question_key: q.question_key,
+        question: q.question,
+        options: q.options,
+        discovered_items: discovered,
+        is_final: false,
+    };
 }
 
 export async function demoPOST(path, _body) {
@@ -65,6 +141,29 @@ export async function demoPOST(path, _body) {
             i.description.toLowerCase().includes(query)
         ).slice(0, 20);
         return { items: results, total: results.length, query: _body?.query || '' };
+    }
+    if (path === '/analysis/questionnaire/start') {
+        demoQStep = 0;
+        demoSessionId = 'demo-session-' + Date.now();
+        return buildDemoQuestion(0, []);
+    }
+    if (path === '/analysis/questionnaire/answer') {
+        const data = await loadDemoData();
+        const prev = DEMO_QUESTIONS[demoQStep];
+        demoQStep++;
+        // Resolve discovered items from seed data
+        const discovered = (prev?.discovers || []).map(name => {
+            const item = data.items.find(i => i.name === name);
+            return item ? { id: item.id, name: item.name, description: item.description } : null;
+        }).filter(Boolean);
+        return buildDemoQuestion(demoQStep, discovered);
+    }
+    if (path === '/analysis/synergy') {
+        return {
+            analysis: 'Demo mode: Synergy analysis requires the backend API with Claude AI integration. In production, this analyzes your selected deductions for overlapping benefits and optimization opportunities.',
+            item_ids: _body?.item_ids || [],
+            cached: false,
+        };
     }
     return {};
 }
