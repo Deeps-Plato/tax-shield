@@ -106,5 +106,11 @@
     "description": "Other deductible expenses",
     "icon": "more",
     "sort_order": 18
+  },
+  {
+    "name": "Real Estate & Land",
+    "description": "Real estate, land use, and property-based tax strategies",
+    "icon": "building",
+    "sort_order": 19
   }
 ]

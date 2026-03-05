@@ -124,6 +124,7 @@ class StrategyOut(BaseModel):
     example: str | None = None
     caveats: str | None = None
     related_item_ids: list[int]
+    irs_reference: str | None = None
     is_active: bool
 
     model_config = {"from_attributes": True}
@@ -140,6 +141,7 @@ class StrategyCreate(BaseModel):
     example: str | None = None
     caveats: str | None = None
     related_item_ids: list[int] = []
+    irs_reference: str | None = None
 
 
 # ── User Items ──

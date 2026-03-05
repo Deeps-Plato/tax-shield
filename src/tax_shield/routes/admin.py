@@ -13,10 +13,11 @@ router = APIRouter(prefix="/api/admin", tags=["admin"])
 
 @router.post("/seed", status_code=status.HTTP_200_OK)
 async def seed_data(
+    force: bool = False,
     _user: User = Depends(require_admin),
     db: AsyncSession = Depends(get_db),
 ) -> dict:
-    counts = await seed_all(db)
+    counts = await seed_all(db, force=force)
     return {"message": "Seed data loaded", "counts": counts}
 
 

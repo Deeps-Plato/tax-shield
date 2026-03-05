@@ -2264,5 +2264,170 @@
     "deduction_percentage": null,
     "max_amount": null,
     "conditions": "Must invest capital gains within 180 days. Hold 10+ years for exclusion of new gains."
+  },
+  {
+    "name": "Mortgage Interest Deduction (Rental Property)",
+    "description": "Deduct mortgage interest on loans used to acquire or improve rental real estate property.",
+    "category": "Real Estate & Land",
+    "deduction_type": "deduction",
+    "filing_types": ["individual", "self_employed", "llc", "partnership", "s_corp"],
+    "irs_reference": "IRC §163(h); Schedule E",
+    "deduction_percentage": null,
+    "max_amount": null,
+    "conditions": "Interest must be on debt used to acquire, build, or improve rental property. Report on Schedule E."
+  },
+  {
+    "name": "Property Tax Deduction (Rental)",
+    "description": "Deduct real estate taxes paid on rental properties as a business expense on Schedule E.",
+    "category": "Real Estate & Land",
+    "deduction_type": "deduction",
+    "filing_types": ["individual", "self_employed", "llc", "partnership", "s_corp"],
+    "irs_reference": "IRC §164; Schedule E",
+    "deduction_percentage": null,
+    "max_amount": null,
+    "conditions": "Rental property taxes are fully deductible as business expense (not subject to SALT cap). Report on Schedule E."
+  },
+  {
+    "name": "Rental Property Depreciation (Residential 27.5-Year)",
+    "description": "Depreciate residential rental building cost over 27.5 years using straight-line method.",
+    "category": "Real Estate & Land",
+    "deduction_type": "deduction",
+    "filing_types": ["individual", "self_employed", "llc", "partnership", "s_corp"],
+    "irs_reference": "IRC §168(c); Form 4562; Publication 946",
+    "deduction_percentage": null,
+    "max_amount": null,
+    "conditions": "Building portion only (exclude land). Begins when placed in service. Mid-month convention applies."
+  },
+  {
+    "name": "Commercial Property Depreciation (39-Year)",
+    "description": "Depreciate nonresidential real property over 39 years using straight-line depreciation.",
+    "category": "Real Estate & Land",
+    "deduction_type": "deduction",
+    "filing_types": ["self_employed", "llc", "partnership", "s_corp"],
+    "irs_reference": "IRC §168(c); Form 4562",
+    "deduction_percentage": null,
+    "max_amount": null,
+    "conditions": "Nonresidential real property. 39-year straight-line. Mid-month convention. Excludes land."
+  },
+  {
+    "name": "1031 Exchange Tax Deferral",
+    "description": "Defer capital gains tax by exchanging investment real property for like-kind property.",
+    "category": "Real Estate & Land",
+    "deduction_type": "deduction",
+    "filing_types": ["individual", "self_employed", "llc", "partnership", "s_corp"],
+    "irs_reference": "IRC §1031; Form 8824",
+    "deduction_percentage": null,
+    "max_amount": null,
+    "conditions": "Must use qualified intermediary. 45-day identification and 180-day closing deadlines. Both properties for investment/business use."
+  },
+  {
+    "name": "Conservation Easement Charitable Deduction",
+    "description": "Charitable deduction for donating a permanent conservation easement on qualified real property.",
+    "category": "Real Estate & Land",
+    "deduction_type": "deduction",
+    "filing_types": ["individual", "self_employed", "llc", "partnership"],
+    "irs_reference": "IRC §170(h); Form 8283",
+    "deduction_percentage": null,
+    "max_amount": null,
+    "conditions": "Qualified appraisal required. Easement must be permanent. 50% AGI limit (100% for qualified farmers/ranchers). 15-year carryforward."
+  },
+  {
+    "name": "Rental Repairs and Maintenance",
+    "description": "Deduct ordinary and necessary repair expenses for rental property in the year incurred.",
+    "category": "Real Estate & Land",
+    "deduction_type": "deduction",
+    "filing_types": ["individual", "self_employed", "llc", "partnership", "s_corp"],
+    "irs_reference": "IRC §162; Treas. Reg. §1.162-4; Schedule E",
+    "deduction_percentage": null,
+    "max_amount": null,
+    "conditions": "Must be repairs (not improvements). Improvements must be capitalized and depreciated. De minimis safe harbor: $2,500 per item."
+  },
+  {
+    "name": "Rental Insurance Premiums",
+    "description": "Deduct insurance premiums paid on rental properties (fire, liability, flood, etc.).",
+    "category": "Real Estate & Land",
+    "deduction_type": "deduction",
+    "filing_types": ["individual", "self_employed", "llc", "partnership", "s_corp"],
+    "irs_reference": "IRC §162; Schedule E",
+    "deduction_percentage": null,
+    "max_amount": null,
+    "conditions": "Must be ordinary and necessary business insurance for rental activity."
+  },
+  {
+    "name": "Property Management Fees",
+    "description": "Deduct fees paid to property management companies for managing rental properties.",
+    "category": "Real Estate & Land",
+    "deduction_type": "deduction",
+    "filing_types": ["individual", "self_employed", "llc", "partnership", "s_corp"],
+    "irs_reference": "IRC §162; Schedule E",
+    "deduction_percentage": null,
+    "max_amount": null,
+    "conditions": "Typical fee: 8-12% of rental income. Must be for legitimate management services."
+  },
+  {
+    "name": "Rental Travel Expenses",
+    "description": "Deduct travel costs to manage, maintain, or collect rent from rental properties.",
+    "category": "Real Estate & Land",
+    "deduction_type": "deduction",
+    "filing_types": ["individual", "self_employed", "llc", "partnership", "s_corp"],
+    "irs_reference": "IRC §162; IRC §212; Publication 527",
+    "deduction_percentage": null,
+    "max_amount": null,
+    "conditions": "Local travel: standard mileage rate or actual expenses. Overnight: reasonable lodging and meals (50% for meals)."
+  },
+  {
+    "name": "Depreciation Recapture (Section 1250)",
+    "description": "Unrecaptured §1250 gain on sale of depreciable real property is taxed at a maximum 25% rate.",
+    "category": "Real Estate & Land",
+    "deduction_type": "both",
+    "filing_types": ["individual", "self_employed", "llc", "partnership", "s_corp"],
+    "irs_reference": "IRC §1250; IRC §1(h)(1)(E); Form 4797",
+    "deduction_percentage": null,
+    "max_amount": null,
+    "conditions": "Applies on sale of real property. Recapture equals lesser of gain or accumulated depreciation. Maximum 25% tax rate."
+  },
+  {
+    "name": "Historic Rehabilitation Tax Credit",
+    "description": "20% federal tax credit for qualified rehabilitation expenses on certified historic structures.",
+    "category": "Real Estate & Land",
+    "deduction_type": "credit",
+    "filing_types": ["individual", "self_employed", "llc", "partnership", "s_corp"],
+    "irs_reference": "IRC §47; Form 3468",
+    "deduction_percentage": 20,
+    "max_amount": null,
+    "conditions": "Certified historic structure. Substantial rehabilitation test. Credit claimed ratably over 5 years. Must reduce depreciable basis."
+  },
+  {
+    "name": "Low-Income Housing Tax Credit (LIHTC)",
+    "description": "Federal tax credit for investment in qualified low-income housing projects, claimed over 10 years.",
+    "category": "Real Estate & Land",
+    "deduction_type": "credit",
+    "filing_types": ["individual", "s_corp", "llc", "partnership"],
+    "irs_reference": "IRC §42; Form 8586; Form 8609",
+    "deduction_percentage": null,
+    "max_amount": null,
+    "conditions": "Allocated by state housing agencies. 15-year compliance period. Rent and income restrictions on tenants."
+  },
+  {
+    "name": "Installment Sale Interest Income Deferral",
+    "description": "Spread gain recognition from property sales over the installment period, deferring tax liability.",
+    "category": "Real Estate & Land",
+    "deduction_type": "deduction",
+    "filing_types": ["individual", "self_employed", "llc", "partnership"],
+    "irs_reference": "IRC §453; Form 6252",
+    "deduction_percentage": null,
+    "max_amount": null,
+    "conditions": "At least one payment after tax year of sale. Depreciation recapture recognized in year of sale. Interest charges above $5M."
+  },
+  {
+    "name": "Qualified Land Conservation Contribution",
+    "description": "Enhanced deduction for qualified farmers and ranchers donating conservation easements — up to 100% of AGI.",
+    "category": "Real Estate & Land",
+    "deduction_type": "deduction",
+    "filing_types": ["individual", "self_employed", "partnership"],
+    "irs_reference": "IRC §170(b)(1)(E); Form 8283",
+    "deduction_percentage": 100,
+    "max_amount": null,
+    "conditions": "Qualified farmer/rancher. Land must remain available for farming. 100% AGI limit. 15-year carryforward."
   }
 ]

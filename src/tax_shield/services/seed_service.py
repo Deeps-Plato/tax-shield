@@ -6,14 +6,26 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tax_shield.config import settings
-from tax_shield.models.db_models import Category, Item, Strategy, User
+from tax_shield.models.db_models import Category, Item, Strategy, Transaction, User, UserItem
 from tax_shield.security import hash_password
 
 SEED_DIR = Path(__file__).parent.parent / "seed_data"
 
 
-async def seed_all(db: AsyncSession) -> dict[str, int]:
+async def seed_all(db: AsyncSession, *, force: bool = False) -> dict[str, int]:
     counts: dict[str, int] = {}
+
+    if force:
+        # Delete in dependency order to avoid FK violations
+        await db.execute(UserItem.__table__.delete())
+        await db.execute(Strategy.__table__.delete())
+        await db.execute(Item.__table__.delete())
+        # Null out transaction category refs before deleting categories
+        await db.execute(
+            Transaction.__table__.update().values(tax_category_id=None)
+        )
+        await db.execute(Category.__table__.delete())
+        await db.commit()
 
     counts["categories"] = await _seed_categories(db)
     counts["items"] = await _seed_items(db)

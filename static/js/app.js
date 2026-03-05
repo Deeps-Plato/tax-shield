@@ -14,6 +14,7 @@ const routes = {
     'my-items': 'my-items',
     'strategies': 'strategies',
     'transactions': 'transactions',
+    'real-estate': 'real-estate',
     'questionnaire': 'questionnaire',
     'analysis': 'analysis',
     'tax-forms': 'tax-forms',
@@ -77,6 +78,7 @@ async function render() {
             case 'items': await renderItems(main); break;
             case 'my-items': await renderMyItems(main); break;
             case 'strategies': await renderStrategies(main); break;
+            case 'real-estate': await renderRealEstate(main); break;
             case 'transactions': await renderTransactions(main); break;
             case 'questionnaire': main.innerHTML = renderQuestionnaire(); break;
             case 'analysis': main.innerHTML = renderAnalysis(); break;
@@ -100,6 +102,7 @@ function updateNav(user) {
         ['items', 'Browse Items'],
         ['my-items', 'My Items'],
         ['strategies', 'Strategies'],
+        ['real-estate', 'Real Estate'],
         ['transactions', 'Transactions'],
         ['questionnaire', 'Questionnaire'],
         ['analysis', 'AI Analysis'],
@@ -379,32 +382,86 @@ async function renderMyItems(main) {
     </div>`;
 }
 
+function renderStrategyCard(s) {
+    return html`
+    <details class="bg-white rounded-lg shadow group">
+        <summary class="p-4 cursor-pointer flex justify-between items-center">
+            <div>
+                <h3 class="font-semibold text-gray-800">${s.name}</h3>
+                <div class="flex flex-wrap gap-2 mt-1">
+                    <span class="text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-700">${s.complexity}</span>
+                    ${s.estimated_savings ? `<span class="text-xs px-2 py-0.5 rounded bg-green-100 text-green-700">${s.estimated_savings}</span>` : ''}
+                    ${s.irs_reference ? `<span class="text-xs px-2 py-0.5 rounded bg-amber-100 text-amber-800" title="IRS Reference">${s.irs_reference}</span>` : ''}
+                </div>
+            </div>
+            <span class="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <div class="px-4 pb-4 border-t">
+            <p class="text-gray-600 mt-3 mb-3">${s.description}</p>
+            ${s.irs_reference ? `<p class="text-sm mt-2"><strong>IRS Reference:</strong> <span class="text-amber-800">${s.irs_reference}</span></p>` : ''}
+            ${s.requirements ? `<p class="text-sm mt-2"><strong>Requirements:</strong> ${s.requirements}</p>` : ''}
+            ${s.example ? `<p class="text-sm mt-2"><strong>Example:</strong> ${s.example}</p>` : ''}
+            ${s.caveats ? `<p class="text-sm mt-2 text-amber-700"><strong>Caveats:</strong> ${s.caveats}</p>` : ''}
+        </div>
+    </details>`;
+}
+
 async function renderStrategies(main) {
     const strategies = await GET('/strategies');
     main.innerHTML = html`
     <div class="max-w-4xl mx-auto p-6">
         <h1 class="text-2xl font-bold text-gray-800 mb-6">Tax Strategies</h1>
         <div class="space-y-4">
-            ${strategies.map(s => html`
-            <details class="bg-white rounded-lg shadow group">
-                <summary class="p-4 cursor-pointer flex justify-between items-center">
-                    <div>
-                        <h3 class="font-semibold text-gray-800">${s.name}</h3>
-                        <div class="flex gap-2 mt-1">
-                            <span class="text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-700">${s.complexity}</span>
-                            ${s.estimated_savings ? `<span class="text-xs px-2 py-0.5 rounded bg-green-100 text-green-700">${s.estimated_savings}</span>` : ''}
+            ${strategies.map(s => renderStrategyCard(s)).join('')}
+        </div>
+    </div>`;
+}
+
+async function renderRealEstate(main) {
+    const [strategies, items, cats] = await Promise.all([
+        GET('/strategies'),
+        GET('/items'),
+        categories.length ? Promise.resolve(categories) : GET('/categories'),
+    ]);
+    if (!categories.length) categories = cats;
+
+    const reCat = categories.find(c => c.name === 'Real Estate & Land');
+    const reCatId = reCat ? reCat.id : null;
+    const reStrategies = reCatId ? strategies.filter(s => s.category_id === reCatId) : [];
+    const reItems = reCatId ? items.filter(i => i.category_id === reCatId) : [];
+
+    main.innerHTML = html`
+    <div class="max-w-4xl mx-auto p-6">
+        <h1 class="text-2xl font-bold text-gray-800 mb-2">Real Estate & Land</h1>
+        <p class="text-gray-500 mb-6">Real estate, land use, and property-based tax strategies and deductions</p>
+
+        <h2 class="text-lg font-semibold text-gray-700 mb-3">Strategies (${reStrategies.length})</h2>
+        <div class="space-y-4 mb-8">
+            ${reStrategies.length
+                ? reStrategies.map(s => renderStrategyCard(s)).join('')
+                : '<p class="text-gray-400">No real estate strategies found. Re-seed the database.</p>'}
+        </div>
+
+        <h2 class="text-lg font-semibold text-gray-700 mb-3">Deductions & Credits (${reItems.length})</h2>
+        <div class="space-y-3">
+            ${reItems.length
+                ? reItems.map(item => html`
+                <div class="bg-white rounded-lg shadow p-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-semibold text-gray-800">${item.name}</h3>
+                            <p class="text-sm text-gray-600 mt-1">${item.description}</p>
                         </div>
+                        <span class="text-xs px-2 py-0.5 rounded ${item.deduction_type === 'credit' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'} whitespace-nowrap ml-2">${item.deduction_type}</span>
                     </div>
-                    <span class="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
-                </summary>
-                <div class="px-4 pb-4 border-t">
-                    <p class="text-gray-600 mt-3 mb-3">${s.description}</p>
-                    ${s.requirements ? `<p class="text-sm"><strong>Requirements:</strong> ${s.requirements}</p>` : ''}
-                    ${s.example ? `<p class="text-sm mt-2"><strong>Example:</strong> ${s.example}</p>` : ''}
-                    ${s.caveats ? `<p class="text-sm mt-2 text-amber-700"><strong>Caveats:</strong> ${s.caveats}</p>` : ''}
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        ${item.irs_reference ? `<span class="text-xs px-2 py-0.5 rounded bg-amber-100 text-amber-800">${item.irs_reference}</span>` : ''}
+                        ${item.max_amount ? `<span class="text-xs px-2 py-0.5 rounded bg-green-100 text-green-700">Max: $${item.max_amount.toLocaleString()}</span>` : ''}
+                    </div>
+                    ${item.conditions ? `<p class="text-xs text-gray-500 mt-2">${item.conditions}</p>` : ''}
                 </div>
-            </details>
-            `).join('')}
+                `).join('')
+                : '<p class="text-gray-400">No real estate items found. Re-seed the database.</p>'}
         </div>
     </div>`;
 }

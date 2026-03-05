@@ -98,6 +98,7 @@ class Strategy(Base):
     example: Mapped[str | None] = mapped_column(Text, nullable=True)
     caveats: Mapped[str | None] = mapped_column(Text, nullable=True)
     related_item_ids: Mapped[dict] = mapped_column(JSONB, default=list)
+    irs_reference: Mapped[str | None] = mapped_column(Text, nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
