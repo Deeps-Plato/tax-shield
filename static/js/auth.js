@@ -1,5 +1,6 @@
 // Auth state management
-import { GET, POST, setTokens, clearTokens, getToken } from './api.js';
+import { GET, POST, setTokens, clearTokens, getToken, checkDemoMode } from './api.js';
+import { getDemoUser } from './demo.js';
 
 let currentUser = null;
 const authListeners = [];
@@ -13,6 +14,14 @@ function notifyAuth() {
 }
 
 async function checkAuth() {
+    // Demo mode: auto-login
+    if (await checkDemoMode()) {
+        setTokens('demo-token', 'demo-refresh');
+        currentUser = getDemoUser();
+        notifyAuth();
+        return true;
+    }
+
     if (!getToken()) {
         currentUser = null;
         notifyAuth();

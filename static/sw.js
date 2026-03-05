@@ -1,12 +1,14 @@
-const CACHE_NAME = 'tax-shield-v1';
+const CACHE_NAME = 'tax-shield-v2';
 const STATIC_ASSETS = [
-    '/',
-    '/index.html',
-    '/css/app.css',
-    '/js/app.js',
-    '/js/api.js',
-    '/js/auth.js',
-    '/manifest.json',
+    './',
+    './index.html',
+    './css/app.css',
+    './js/app.js',
+    './js/api.js',
+    './js/auth.js',
+    './js/demo.js',
+    './js/demo-data.json',
+    './manifest.json',
 ];
 
 // Install — cache static shell
@@ -32,7 +34,7 @@ self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
 
     // API calls: always go to network
-    if (url.pathname.startsWith('/api/')) {
+    if (url.pathname.includes('/api/')) {
         event.respondWith(fetch(event.request));
         return;
     }

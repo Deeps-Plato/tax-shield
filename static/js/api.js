@@ -1,6 +1,15 @@
 // API wrapper with auth token management
+// Falls back to demo mode when no backend is available (GitHub Pages)
+
+import { isDemo, demoGET, demoPOST } from './demo.js';
 
 const API_BASE = '/api';
+let _demoMode = null;
+
+async function checkDemoMode() {
+    if (_demoMode === null) _demoMode = await isDemo();
+    return _demoMode;
+}
 
 function getToken() {
     return localStorage.getItem('access_token');
@@ -21,6 +30,17 @@ function clearTokens() {
 }
 
 async function api(path, options = {}) {
+    // Demo mode bypass
+    if (await checkDemoMode()) {
+        const method = (options.method || 'GET').toUpperCase();
+        if (method === 'GET') return demoGET(path);
+        if (method === 'POST') {
+            const body = typeof options.body === 'string' ? JSON.parse(options.body) : options.body;
+            return demoPOST(path, body);
+        }
+        return {};
+    }
+
     const url = `${API_BASE}${path}`;
     const headers = { ...options.headers };
 
@@ -83,4 +103,4 @@ async function uploadFile(path, file, params = {}) {
     return api(url, { method: 'POST', body: formData });
 }
 
-export { GET, POST, PATCH, DELETE, uploadFile, setTokens, clearTokens, getToken };
+export { GET, POST, PATCH, DELETE, uploadFile, setTokens, clearTokens, getToken, checkDemoMode };

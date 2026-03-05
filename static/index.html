@@ -7,12 +7,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Tax Shield">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icons/icon.svg">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="icons/icon.svg">
     <title>Tax Shield</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="css/app.css">
 </head>
 <body class="bg-gray-50 min-h-screen">
     <!-- Nav -->
@@ -75,7 +75,7 @@
     <script>
         // Service worker registration
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').catch(() => {});
+            navigator.serviceWorker.register('sw.js').catch(() => {});
         }
 
         // Mobile menu toggle
@@ -83,6 +83,6 @@
             document.getElementById('mobile-nav')?.classList.toggle('hidden');
         });
     </script>
-    <script type="module" src="/js/app.js"></script>
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>
